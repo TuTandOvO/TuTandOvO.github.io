@@ -1,0 +1,6 @@
+# social media links and usernames (displayed in the order defined here)
+# docs: https://github.com/george-gca/jekyll-socials
+cv_pdf: /assets/pdf/Yixiang_Ren_CV.pdf # path to your CV PDF file
+email: yixiang.23@intl.zju.edu.cn # your email address
+github_username: TuTandOvO # your GitHub username
+rss_icon: true # comment this line to hide the RSS icon
