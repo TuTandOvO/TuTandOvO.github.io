@@ -12,7 +12,7 @@ category: personal genomics
 ## It started with a photo
 
 <div class="row justify-content-sm-center">
-  <div class="col-sm-7 mt-3 mt-md-0">
+  <div class="col-sm-5 mt-3 mt-md-0">
     {% include figure.liquid loading="eager" path="assets/img/omics_childhood.jpg" title="My twin brother and me as kids" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
