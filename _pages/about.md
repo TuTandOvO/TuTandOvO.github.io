@@ -22,7 +22,7 @@ latest_posts:
   enabled: false
 ---
 
-Hi, I'm **Yixiang Ren (任奕翔)** — an undergraduate reading for a **B.Sc. in Bioinformatics** at the [Zhejiang University–University of Edinburgh (ZJU–UoE) Institute](https://zje.zju.edu.cn/zje/main.htm), a joint two-degree programme between Zhejiang University and the University of Edinburgh (2023–2027).
+Hi, I'm **Yixiang Ren (任逸翔)** — an undergraduate reading for a **B.Sc. in Bioinformatics** at the [Zhejiang University–University of Edinburgh (ZJU–UoE) Institute](https://zje.zju.edu.cn/zje/main.htm), a joint two-degree programme between Zhejiang University and the University of Edinburgh (2023–2027).
 
 I work at the interface of **computational and experimental biology**. My main interests are **single-cell and spatial transcriptomics**, **epigenomics and gene regulation**, and, more recently, **single-cell foundation models** — building methods that turn large, messy molecular data into testable biological hypotheses. I'm comfortable across the stack, from snRNA-seq / spatial / ChIP-seq pipelines and benchmarking to a fair amount of bench work (IHC, IF, dissection).
 
