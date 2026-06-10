@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omics of me — twin WGS dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f3; --ink:#1d2733; --muted:#7a8694; --line:#e7e2d6; --card:#fff;
+    --you:#d05a4f; --bro:#3b73c4; --green:#2f9e6e; --violet:#7a55c4; --amber:#c79a3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1100px 520px at 15% -10%,#fff 0,transparent 60%),var(--paper);
+    color:var(--ink);font-family:"IBM Plex Sans",sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1180px;margin:0 auto;padding:38px 40px 52px;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--you);font-weight:500;}
+  h1{font-family:"Fraunces",serif;font-weight:500;font-size:34px;line-height:1.1;margin:.3em 0 .1em;letter-spacing:-.01em;}
+  h1 em{font-style:italic;color:var(--bro);}
+  .lead{color:var(--muted);font-size:14.5px;max-width:66ch;line-height:1.55;margin:.2em 0 0;}
+  .verdict{display:inline-flex;align-items:center;gap:8px;margin-top:16px;background:#eef6f0;border:1px solid #cfe6d8;
+    color:#226e4e;border-radius:999px;padding:7px 15px;font-size:13px;font-weight:600;}
+  .verdict .d{width:8px;height:8px;border-radius:50%;background:#2f9e6e;}
+  /* grid */
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:24px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
+    box-shadow:0 1px 0 rgba(29,39,51,.03),0 14px 30px -22px rgba(29,39,51,.3);}
+  .card h2{font-family:"Fraunces",serif;font-weight:600;font-size:16.5px;margin:0 0 2px;}
+  .card .hint{font-size:11.5px;color:var(--muted);font-family:"IBM Plex Mono",monospace;margin:0 0 12px;}
+  .c4{grid-column:span 4} .c5{grid-column:span 5} .c6{grid-column:span 6} .c7{grid-column:span 7} .c8{grid-column:span 8} .c12{grid-column:span 12}
+  @media(max-width:680px){.wrap{padding:24px}.grid>*{grid-column:1/-1 !important}}
+  /* stat tiles */
+  .tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .tile{background:#fbfaf7;border:1px solid var(--line);border-radius:12px;padding:12px 13px;}
+  .tile .v{font-family:"Fraunces",serif;font-weight:600;font-size:24px;line-height:1;}
+  .tile .k{font-size:11px;color:var(--muted);margin-top:5px;font-family:"IBM Plex Mono",monospace;}
+  /* kinship scale */
+  .scale{position:relative;height:14px;border-radius:8px;margin:30px 0 8px;
+    background:linear-gradient(90deg,#eef1f5 0%,#e9f1fb 28%,#fdeceb 55%,#f6efe1 100%);border:1px solid var(--line);}
+  .mk{position:absolute;top:-22px;transform:translateX(-50%);font-size:10px;color:var(--muted);font-family:"IBM Plex Mono",monospace;text-align:center;width:80px;}
+  .mk::after{content:"";position:absolute;left:50%;top:18px;width:1px;height:8px;background:#cbd2db;}
+  .needle{position:absolute;top:-6px;width:3px;height:26px;border-radius:2px;background:var(--you);transform:translateX(-50%);box-shadow:0 0 0 3px rgba(208,90,79,.18);}
+  .needle .lab{position:absolute;top:-20px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:600;color:var(--you);}
+  /* donut + legend */
+  .donutrow{display:flex;align-items:center;gap:18px}
+  .lg{font-size:12px;color:var(--ink)} .lg b{font-family:"IBM Plex Mono",monospace}
+  .lg .s{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
+  /* prs bars */
+  .prs{margin-top:6px}
+  .prsrow{display:grid;grid-template-columns:120px 1fr;align-items:center;gap:10px;margin:9px 0;}
+  .prsrow .nm{font-size:12px;font-family:"IBM Plex Mono",monospace;color:var(--muted)}
+  .bar{position:relative;height:30px;background:#f4f1ea;border-radius:7px;overflow:hidden}
+  .bar .fy,.bar .fb{position:absolute;top:0;bottom:0;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:11px;color:#fff;font-weight:600}
+  .bar .fy{background:var(--you)} .bar .fb{background:var(--bro);opacity:.92}
+  .pair{display:flex;flex-direction:column;gap:4px}
+  /* chrom bars */
+  .chrom{display:flex;align-items:flex-end;gap:3px;height:120px;margin-top:6px}
+  .chrom .cb{flex:1;background:linear-gradient(180deg,#e7a59e,#d05a4f);border-radius:3px 3px 0 0;position:relative}
+  .chrom .cl{font-size:8px;color:var(--muted);text-align:center;transform:rotate(-90deg);transform-origin:center;position:absolute;bottom:-16px;left:0;right:0}
+  .chromwrap{padding-bottom:20px}
+  /* loci */
+  table.loci{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+  table.loci th{text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line)}
+  table.loci td{padding:8px 8px;border-bottom:1px solid #f1ede3}
+  .gt{font-family:"IBM Plex Mono",monospace;font-weight:600}
+  .pill{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:999px;font-weight:600}
+  .pill.no{background:#eef1f5;color:#6b7280} .pill.bro{background:#e9f1fb;color:#2c5aa0}
+  /* conclusion */
+  .concl{margin-top:18px;background:#1d2733;color:#f2efe8;border-radius:16px;padding:22px 24px;}
+  .concl h2{font-family:"Fraunces",serif;font-weight:500;font-size:20px;margin:0 0 8px;color:#fff}
+  .concl p{margin:0;font-size:14px;line-height:1.6;color:#cfd5dc;max-width:80ch}
+  .concl em{color:#f0b8b2;font-style:normal;font-weight:600}
+  .foot{margin-top:18px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Omics of me · whole-genome sequencing · n = 2 fraternal twins</div>
+  <h1>Does DNA explain why I'm the <em>heavier twin</em>?</h1>
+  <p class="lead">My fraternal twin brother and I each had a ~60× genome sequenced. I compared them honestly — zygosity, ~1.8M differing variants, obesity-gene panel, and a genome-wide BMI polygenic score. Here is what the data actually say.</p>
+  <span class="verdict"><span class="d"></span>Answer: no — common-variant genetics does not explain it</span>
+
+  <div class="grid">
+
+    <!-- Zygosity -->
+    <div class="card c7">
+      <h2>We are dizygotic twins</h2>
+      <p class="hint">KING kinship + genome-wide IBS · confirms fraternal (full-sib)</p>
+      <div class="scale">
+        <div class="mk" style="left:0%">unrelated<br>0</div>
+        <div class="mk" style="left:25%">half-sib<br>0.125</div>
+        <div class="mk" style="left:50%">full-sib / DZ<br>0.25</div>
+        <div class="mk" style="left:100%">identical / MZ<br>0.50</div>
+        <div class="needle" style="left:43.4%"><span class="lab">us · 0.217</span></div>
+      </div>
+      <p class="hint" style="margin-top:18px">Kinship 0.217 with non-zero IBS0 (0.047) sits squarely in the full-sibling / DZ band — and rules out an identical (MZ) or parent–child relationship. We share roughly half our genome identical-by-descent.</p>
+    </div>
+
+    <div class="card c5">
+      <h2>By the numbers</h2>
+      <p class="hint">two-sample joint call set</p>
+      <div class="tiles">
+        <div class="tile"><div class="v">0.217</div><div class="k">KING kinship (→ DZ)</div></div>
+        <div class="tile"><div class="v">0.047</div><div class="k">IBS0 (&gt;0 ⇒ not MZ)</div></div>
+        <div class="tile"><div class="v">~1.79 M</div><div class="k">differing genotypes (QC)</div></div>
+        <div class="tile"><div class="v">0</div><div class="k">obesity-gene variants differ</div></div>
+      </div>
+    </div>
+
+    <!-- Concordance -->
+    <div class="card c5">
+      <h2>How alike, where it counts</h2>
+      <p class="hint">genotype concordance at variant sites (n ≈ 5.94M)</p>
+      <div class="donutrow">
+        <svg width="120" height="120" viewBox="0 0 42 42">
+          <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e9f1fb" stroke-width="6"></circle>
+          <circle cx="21" cy="21" r="15.9" fill="none" stroke="#3b73c4" stroke-width="6"
+            stroke-dasharray="58 42" stroke-dashoffset="25" stroke-linecap="butt"></circle>
+          <text x="21" y="20.5" text-anchor="middle" font-size="8" font-family="Fraunces" font-weight="600" fill="#1d2733">58%</text>
+          <text x="21" y="26" text-anchor="middle" font-size="3.2" font-family="IBM Plex Mono" fill="#7a8694">same</text>
+        </svg>
+        <div>
+          <div class="lg" style="margin-bottom:8px"><span class="s" style="background:#3b73c4"></span>identical genotype · <b>3.45M (58%)</b></div>
+          <div class="lg"><span class="s" style="background:#e9f1fb;border:1px solid #cdd"></span>differ · <b>2.50M (42%)</b></div>
+          <p class="hint" style="margin-top:12px">~1.79M of the differences survive a GQ≥20 / DP≥10 quality filter — the raw material for "why am I heavier".</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRS head-to-head -->
+    <div class="card c7">
+      <h2>BMI polygenic score — head to head</h2>
+      <p class="hint">genome-wide weighted score · same-ancestry twins → directly comparable</p>
+      <div class="prs">
+        <div class="prsrow">
+          <div class="nm">PGS000027<br><span style="font-size:10px">2.1M variants</span></div>
+          <div class="pair">
+            <div class="bar"><div class="fy" style="width:99.3%">you · 8.53e-6</div></div>
+            <div class="bar"><div class="fb" style="width:100%">brother · 8.59e-6</div></div>
+          </div>
+        </div>
+        <div class="prsrow">
+          <div class="nm">PGS002313<br><span style="font-size:10px">1.1M variants</span></div>
+          <div class="pair">
+            <div class="bar"><div class="fy" style="width:54%">you</div></div>
+            <div class="bar"><div class="fb" style="width:100%">brother</div></div>
+          </div>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:10px">On the most credible (largest) score the gap is <b>0.7%</b> — statistically indistinguishable at n = 2 with no reference population. If anything, both scores run nominally <b>higher in my leaner brother</b>. The genetics do not favour me.</p>
+    </div>
+
+    <!-- Obesity loci -->
+    <div class="card c6">
+      <h2>Classic BMI loci that differ</h2>
+      <p class="hint">verified against REF/ALT · risk-allele direction checked</p>
+      <table class="loci">
+        <tr><th>locus</th><th>you</th><th>brother</th><th>more risk</th></tr>
+        <tr><td>GNPDA2 · rs10938397</td><td class="gt">A/G</td><td class="gt">G/G</td><td><span class="pill bro">brother</span></td></tr>
+        <tr><td>TMEM18 · rs2867125</td><td class="gt">C/C</td><td class="gt">C/C</td><td><span class="pill no">same</span></td></tr>
+        <tr><td>NEGR1 · rs2815752</td><td class="gt">G/G</td><td class="gt">G/G</td><td><span class="pill no">same</span></td></tr>
+      </table>
+      <p class="hint" style="margin-top:10px">The one verified differing common variant (GNPDA2) carries <b>more</b> BMI-risk in my brother. No rare obesity-gene variant differs at all.</p>
+    </div>
+
+    <!-- per-chromosome -->
+    <div class="card c6">
+      <h2>Where we differ, by chromosome</h2>
+      <p class="hint">differing genotypes per chr · lower bar = more shared (IBD)</p>
+      <div class="chromwrap">
+        <div class="chrom" id="chrom"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="concl">
+    <h2>The honest read</h2>
+    <p>We are confirmed fraternal twins who share about half our DNA, and yet <em>none of the genetic signals explain why I have been the heavier one</em>: no obesity-gene variant differs, our genome-wide BMI polygenic scores are essentially identical (and nominally higher in my leaner brother), and the few classic BMI variants that differ do not favour me. The most likely driver of a lifelong difference is therefore <em>non-genetic</em> — early-life environment, behaviour and epigenetics — none of which whole-genome sequencing can see. A well-built null is the result.</p>
+  </div>
+
+  <p class="foot">
+    Pipeline: vg Giraffe (HPRC pangenome) · Clair3 · GLnexus · bcftools · plink2 (KING + PGS) · Ensembl VEP · PGS Catalog.<br>
+    Framing: n = 2, exploratory / hypothesis-generating, no causal claim. Built from raw FASTQ on an HPC node.
+  </p>
+</div>
+
+<script>
+  // per-chromosome DIFFERING genotypes (twins.diff, GQ20/DP10)
+  var d=[["1",176500],["2",122755],["3",101138],["4",158138],["5",71874],["6",104505],["7",151832],["8",61069],["9",78097],["10",59745],["11",110660],["12",111523],["13",71860],["14",59705],["15",50193],["16",72232],["17",35127],["18",53630],["19",75023],["20",11367],["21",25596],["22",36774],["X",27481],["Y",178]];
+  var mx=Math.max.apply(null,d.map(function(x){return x[1]}));
+  var el=document.getElementById('chrom');
+  d.forEach(function(x){var h=(x[1]/mx*100).toFixed(1);
+    el.insertAdjacentHTML('beforeend','<div class="cb" style="height:'+h+'%" title="chr'+x[0]+': '+x[1].toLocaleString()+'"><div class="cl">'+x[0]+'</div></div>');});
+</script>
+</body>
+</html>

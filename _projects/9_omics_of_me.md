@@ -44,6 +44,11 @@ I built a modern, pangenome-based workflow rather than a textbook linear-referen
   <b>B — Twin comparison &amp; obesity genetics:</b> zygosity / kinship → annotation (<code>VEP</code>) → quality-filtered twin-differential variants → monogenic obesity-gene panel, classic BMI variants, and a genome-wide BMI polygenic-score head-to-head.
 </div>
 
+## Explore the results
+
+<iframe src="{{ '/assets/omics_dashboard.html' | relative_url }}" title="Twin WGS interactive dashboard" loading="lazy" style="width:100%; height:1680px; border:1px solid var(--global-divider-color); border-radius:12px;"></iframe>
+<p style="font-size:.85rem; color:#7a8694; margin-top:.4rem">Best viewed full width — <a href="{{ '/assets/omics_dashboard.html' | relative_url }}" target="_blank" rel="noopener">open the dashboard in its own tab</a>.</p>
+
 ## What I found — an honest negative
 
 The most defensible reading of the data is that **common-variant genetics does not explain the difference**, and if anything points the other way:
