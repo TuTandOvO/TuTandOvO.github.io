@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fraternal-twin WGS pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f3; --ink:#1d2733; --muted:#7a8694; --line:#e7e2d6;
+    --A1:#e9f1fb; --A2:#e6f4ee; --A3:#f2ecfb; --A4:#fdeceb; --A5:#f6efe1;
+    --B1:#e9f1fb; --B2:#e6f4ee; --B3:#fdeceb; --B4:#f2ecfb; --B5:#f6efe1; --B6:#e9f1fb; --B7:#e6f4ee;
+    --A1d:#3b73c4; --A2d:#2f9e6e; --A3d:#7a55c4; --A4d:#d05a4f; --A5d:#c79a3a;
+    --acc:#d05a4f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(1200px 600px at 18% -8%, #fff 0%, transparent 60%),
+      var(--paper);
+    color:var(--ink);font-family:"IBM Plex Sans",sans-serif;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1280px;min-width:1120px;margin:0 auto;padding:40px 44px 56px;}
+  /* header */
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--acc);font-weight:500;}
+  h1{font-family:"Fraunces",serif;font-weight:500;font-size:38px;line-height:1.08;
+    margin:.32em 0 .18em;letter-spacing:-.01em;max-width:30ch;}
+  h1 em{font-style:italic;color:var(--A4d);}
+  .sub{color:var(--muted);font-size:15px;max-width:62ch;line-height:1.5;margin:0;}
+  .samples{display:flex;gap:10px;margin:18px 0 4px;flex-wrap:wrap;}
+  .chip{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);
+    background:#fff;border-radius:999px;padding:7px 14px 7px 9px;font-size:13px;font-weight:500;}
+  .chip svg{display:block}
+  .chip .role{color:var(--muted);font-weight:400;font-size:12px;}
+  /* section rail */
+  .section{position:relative;margin-top:30px;}
+  .rail{position:absolute;left:-30px;top:0;bottom:0;display:flex;align-items:center;}
+  .rail span{font-family:"Fraunces",serif;font-weight:600;font-size:22px;color:var(--ink);
+    transform:rotate(-90deg);transform-origin:center;white-space:nowrap;}
+  .sechead{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);margin:0 0 12px 0;}
+  /* rows */
+  .row{display:grid;gap:14px;align-items:stretch;}
+  .rowA{grid-template-columns:repeat(5,1fr);}
+  .rowB{grid-template-columns:repeat(7,1fr);}
+  /* panels */
+  .p{position:relative;background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:16px 14px 14px;min-height:150px;display:flex;flex-direction:column;gap:10px;
+    box-shadow:0 1px 0 rgba(29,39,51,.03),0 10px 24px -18px rgba(29,39,51,.28);}
+  .p .badge{position:absolute;top:-11px;left:14px;width:24px;height:24px;border-radius:50%;
+    display:grid;place-items:center;color:#fff;font-size:12px;font-weight:600;
+    font-family:"IBM Plex Mono",monospace;box-shadow:0 2px 6px rgba(29,39,51,.18);}
+  .p .ic{height:54px;display:flex;align-items:center;}
+  .p .t{font-weight:600;font-size:14px;line-height:1.18;letter-spacing:-.01em;}
+  .p .s{font-size:11.5px;color:var(--muted);font-family:"IBM Plex Mono",monospace;line-height:1.35;}
+  .tint{position:absolute;inset:0;border-radius:16px;opacity:.5;z-index:-1;}
+  /* connector band (A -> B fan-out) */
+  .fan{height:46px;width:100%;}
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:16px 22px;margin-top:26px;padding-top:18px;
+    border-top:1px solid var(--line);font-size:12px;color:var(--muted);}
+  .legend b{color:var(--ink);font-weight:600;}
+  .note{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);margin-top:10px;}
+  .merge{font-size:10.5px;color:var(--muted);text-align:center;margin-top:2px;
+    font-family:"IBM Plex Mono",monospace;}
+  @media(max-width:1100px){.wrap{padding:28px 22px 36px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Whole-genome sequencing · n = 2 fraternal twins · methods</div>
+  <h1>Does DNA explain a <em>lifelong BMI difference</em> between fraternal twins?</h1>
+  <p class="sub">A pangenome-based comparison of two dizygotic twin brothers — from raw reads to an honest, hypothesis-generating read-out. Method only; no result is stated here.</p>
+
+  <div class="samples">
+    <span class="chip">
+      <svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#e9f1fb"/><circle cx="11" cy="8.4" r="3.1" fill="#3b73c4"/><path d="M5.5 16.5c.6-3 3-4.4 5.5-4.4s4.9 1.4 5.5 4.4z" fill="#3b73c4"/></svg>
+      REN YIXIANG <span class="role">younger</span>
+    </span>
+    <span class="chip">
+      <svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="11" fill="#e6f4ee"/><circle cx="11" cy="8.4" r="3.1" fill="#2f9e6e"/><path d="M5.5 16.5c.6-3 3-4.4 5.5-4.4s4.9 1.4 5.5 4.4z" fill="#2f9e6e"/></svg>
+      REN YIZHOU <span class="role">older</span>
+    </span>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="section">
+    <div class="rail"><span>A</span></div>
+    <p class="sechead">Genome assembly &amp; variant discovery</p>
+    <div class="row rowA">
+
+      <div class="p"><span class="tint" style="background:var(--A1)"></span>
+        <span class="badge" style="background:var(--A1d)">1</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><g fill="none" stroke="#3b73c4" stroke-width="2" stroke-linecap="round"><path d="M14 8c0 8 18 8 18 16s-18 8-18 16"/><path d="M32 8c0 8-18 8-18 16s18 8 18 16"/><path d="M16 14h14M15 20h16M15 26h16M16 32h14"/></g></svg></div>
+        <div class="t">Input</div>
+        <div class="s">paired-end WGS<br>2 brothers · DNBSEQ</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--A2)"></span>
+        <span class="badge" style="background:var(--A2d)">2</span>
+        <div class="ic"><svg width="50" height="46" viewBox="0 0 50 46"><g stroke="#2f9e6e" stroke-width="1.8"><path d="M11 14 25 9 39 16 25 23 11 16 25 30 39 23" fill="none" stroke-linejoin="round"/></g><g fill="#2f9e6e"><circle cx="11" cy="15" r="3.2"/><circle cx="25" cy="9" r="3.2"/><circle cx="39" cy="16" r="3.2"/><circle cx="25" cy="23" r="3.2"/><circle cx="25" cy="31" r="3.2"/><circle cx="13" cy="32" r="2.6" opacity=".55"/><circle cx="38" cy="31" r="2.6" opacity=".55"/></g></svg></div>
+        <div class="t">Pangenome graph</div>
+        <div class="s">HPRC · vg indexes</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--A3)"></span>
+        <span class="badge" style="background:var(--A3d)">3</span>
+        <div class="ic"><svg width="56" height="46" viewBox="0 0 56 46"><g stroke="#7a55c4" stroke-width="2.4" stroke-linecap="round"><path d="M6 15h12M22 15h10M36 15h14"/><path d="M6 24h9M19 24h17M40 24h10"/><path d="M6 33h15M25 33h8M37 33h13"/></g><circle cx="50" cy="24" r="4" fill="none" stroke="#7a55c4" stroke-width="2"/></svg></div>
+        <div class="t">Graph alignment</div>
+        <div class="s">KMC · sample graph<br>Giraffe · surject → BAM</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--A4)"></span>
+        <span class="badge" style="background:var(--A4d)">4</span>
+        <div class="ic"><svg width="50" height="46" viewBox="0 0 50 46"><g stroke="#d05a4f" stroke-width="1.8"><circle cx="10" cy="14" r="3.4" fill="#fff"/><circle cx="10" cy="32" r="3.4" fill="#fff"/><circle cx="25" cy="23" r="3.8" fill="#fff"/><circle cx="40" cy="16" r="3.4" fill="#fff"/><circle cx="40" cy="31" r="3.4" fill="#fff"/><path d="M13 15 22 21M13 31 22 25M28 21 37 17M28 25 37 30" fill="none"/></g></svg></div>
+        <div class="t">Variant calling</div>
+        <div class="s">Clair3 · SNV/indel<br>vg call · SV</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--A5)"></span>
+        <span class="badge" style="background:var(--A5d)">5</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><g fill="none" stroke="#c79a3a" stroke-width="2" stroke-linecap="round"><path d="M9 11h28l-9 11v9l-10 4v-13z"/></g><g fill="#c79a3a"><rect x="16" y="35" width="14" height="2.4" rx="1.2"/></g></svg></div>
+        <div class="t">Joint genotyping</div>
+        <div class="s">GLnexus · merge<br>→ one cohort VCF</div>
+      </div>
+
+    </div>
+    <div class="merge">▲ the two brothers' lanes run in parallel and merge here ▲</div>
+  </div>
+
+  <!-- FAN-OUT -->
+  <svg class="fan" viewBox="0 0 1280 46" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="#cbd2db" stroke-width="1.6">
+      <path d="M640 0 V16"/>
+      <path d="M640 16 H92 V44 M640 16 H274 V44 M640 16 H457 V44 M640 16 H640 V44 M640 16 H823 V44 M640 16 H1006 V44 M640 16 H1188 V44"/>
+    </g>
+    <circle cx="640" cy="16" r="3.4" fill="#cbd2db"/>
+  </svg>
+
+  <!-- SECTION B -->
+  <div class="section" style="margin-top:6px">
+    <div class="rail"><span>B</span></div>
+    <p class="sechead">Twin comparison &amp; obesity genetics</p>
+    <div class="row rowB">
+
+      <div class="p"><span class="tint" style="background:var(--B1)"></span>
+        <span class="badge" style="background:var(--A1d)">1</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><g fill="#3b73c4"><circle cx="13" cy="15" r="4.2"/><circle cx="33" cy="15" r="4.2"/><path d="M5 30c.7-4 4-6 8-6s7.3 2 8 6zM25 30c.7-4 4-6 8-6s7.3 2 8 6z"/></g><g fill="none" stroke="#3b73c4" stroke-width="1.6" stroke-dasharray="2 2"><path d="M18 15h10"/></g></svg></div>
+        <div class="t">Zygosity &amp; relatedness</div>
+        <div class="s">KING · concordance</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--B2)"></span>
+        <span class="badge" style="background:var(--A2d)">2</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><g stroke="#2f9e6e" stroke-width="2"><path d="M8 23h12M26 23h12" stroke-linecap="round"/></g><path d="M20 16l10 0 6 7-6 7-10 0z" fill="#fff" stroke="#2f9e6e" stroke-width="2" stroke-linejoin="round"/><circle cx="26" cy="23" r="2" fill="#2f9e6e"/></svg></div>
+        <div class="t">Annotation</div>
+        <div class="s">VEP · csq · AF</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--B3)"></span>
+        <span class="badge" style="background:var(--A4d)">3</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><path d="M9 11h28l-10 12v12l-8-4V23z" fill="none" stroke="#d05a4f" stroke-width="2" stroke-linejoin="round"/><circle cx="14" cy="38" r="2.2" fill="#d05a4f"/><circle cx="22" cy="40" r="2.2" fill="#d05a4f"/></svg></div>
+        <div class="t">Twin-differential</div>
+        <div class="s">discordant sites</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--B4)"></span>
+        <span class="badge" style="background:var(--A3d)">4</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><g fill="#7a55c4"><rect x="9" y="11" width="8" height="8" rx="1.6"/><rect x="19" y="11" width="8" height="8" rx="1.6" opacity=".5"/><rect x="29" y="11" width="8" height="8" rx="1.6"/><rect x="9" y="21" width="8" height="8" rx="1.6" opacity=".5"/><rect x="19" y="21" width="8" height="8" rx="1.6"/><rect x="29" y="21" width="8" height="8" rx="1.6" opacity=".5"/><rect x="9" y="31" width="8" height="6" rx="1.6"/><rect x="19" y="31" width="8" height="6" rx="1.6" opacity=".5"/><rect x="29" y="31" width="8" height="6" rx="1.6"/></g></svg></div>
+        <div class="t">Monogenic panel</div>
+        <div class="s">obesity genes</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--B5)"></span>
+        <span class="badge" style="background:var(--A5d)">5</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><rect x="10" y="10" width="26" height="26" rx="4" fill="#fff" stroke="#c79a3a" stroke-width="2"/><g stroke="#c79a3a" stroke-width="2" stroke-linecap="round"><path d="M15 18h16M15 23h16M15 28h10"/></g></svg></div>
+        <div class="t">Common BMI variants</div>
+        <div class="s">genotype read-out</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--B6)"></span>
+        <span class="badge" style="background:var(--A1d)">6</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><g fill="#3b73c4"><rect x="12" y="20" width="7" height="17" rx="1.5"/><rect x="27" y="14" width="7" height="23" rx="1.5" opacity=".62"/></g><line x1="8" y1="37" x2="38" y2="37" stroke="#3b73c4" stroke-width="1.6"/></svg></div>
+        <div class="t">Polygenic score</div>
+        <div class="s">head-to-head · plink2</div>
+      </div>
+
+      <div class="p"><span class="tint" style="background:var(--B7)"></span>
+        <span class="badge" style="background:var(--A2d)">7</span>
+        <div class="ic"><svg width="46" height="46" viewBox="0 0 46 46"><rect x="8" y="10" width="30" height="26" rx="3" fill="#fff" stroke="#2f9e6e" stroke-width="2"/><line x1="8" y1="17" x2="38" y2="17" stroke="#2f9e6e" stroke-width="1.6"/><rect x="12" y="21" width="8" height="11" fill="#2f9e6e" opacity=".5"/><circle cx="29" cy="27" r="5.5" fill="none" stroke="#2f9e6e" stroke-width="2"/></svg></div>
+        <div class="t">Dashboard</div>
+        <div class="s">interactive site</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><b>Stage colours</b> — group panels by phase</span>
+    <span>● <b style="color:var(--A1d)">blue</b> data/QC</span>
+    <span>● <b style="color:var(--A2d)">green</b> graph/output</span>
+    <span>● <b style="color:var(--A3d)">violet</b> mapping/panel</span>
+    <span>● <b style="color:var(--A4d)">coral</b> calling/filtering</span>
+    <span>● <b style="color:var(--A5d)">amber</b> joint/readout</span>
+  </div>
+  <p class="note">Tools in mono type indicate the primary software at each step · framing: n = 2 fraternal twins, exploratory / hypothesis-generating, no causal claim.</p>
+
+</div>
+</body>
+</html>

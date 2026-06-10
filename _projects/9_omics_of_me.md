@@ -34,11 +34,8 @@ I am a **dizygotic (fraternal) twin**. My brother and I grew up in the same home
 
 I built a modern, pangenome-based workflow rather than a textbook linear-reference one — partly because it is closer to 2025 best practice, partly because it is a better thing to learn.
 
-<div class="row justify-content-sm-center">
-  <div class="col-sm-12 mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/omics_pipeline.png" title="Twin WGS pipeline" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+<iframe src="{{ '/assets/omics_pipeline.html' | relative_url }}" title="Twin WGS pipeline schematic" loading="lazy" scrolling="auto" style="width:100%; height:740px; border:1px solid var(--global-divider-color); border-radius:12px; background:#faf8f3;"></iframe>
+<p style="font-size:.82rem; color:#7a8694; margin:.3rem 0 0">Scroll the panel sideways to follow the full left-to-right flow — or <a href="{{ '/assets/omics_pipeline.html' | relative_url }}" target="_blank" rel="noopener">open it full width</a>. Vector HTML, not a raster image.</p>
 <div class="caption">
   <b>A — Genome assembly &amp; variant discovery:</b> reads → personalized pangenome graph (HPRC, <code>vg giraffe</code>) → surject to GRCh38 → deep-learning small-variant calling (<code>Clair3</code>) + structural variants → joint genotyping (<code>GLnexus</code>).
   <b>B — Twin comparison &amp; obesity genetics:</b> zygosity / kinship → annotation (<code>VEP</code>) → quality-filtered twin-differential variants → monogenic obesity-gene panel, classic BMI variants, and a genome-wide BMI polygenic-score head-to-head.
