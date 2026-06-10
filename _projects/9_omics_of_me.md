@@ -11,12 +11,10 @@ category: personal genomics
 
 ## It started with a photo
 
-<div class="row justify-content-sm-center">
-  <div class="col-sm-5 mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/omics_childhood.jpg" title="My twin brother and me as kids" class="img-fluid rounded z-depth-1" %}
-  </div>
+<div style="max-width:240px; margin:1.1rem auto 0">
+  {% include figure.liquid loading="eager" path="assets/img/omics_childhood.jpg" title="My twin brother and me as kids" class="img-fluid rounded z-depth-1" %}
 </div>
-<div class="caption">My fraternal twin brother and me as kids — that's me on the left. Same womb, same home, same dinner table, and yet I've been the rounder one for as long as there are photos to prove it.</div>
+<div class="caption" style="max-width:440px; margin-left:auto; margin-right:auto">My fraternal twin brother and me as kids — that's me on the left. Same womb, same home, same dinner table, and yet I've been the rounder one for as long as there are photos to prove it.</div>
 
 I'm a **dizygotic (fraternal) twin**. For most of my life, "why am I the bigger one?" was just a family joke. Then I stepped into **bioinformatics** — and realised I could stop guessing and actually *ask the data*: **does our DNA explain the difference?**
 
