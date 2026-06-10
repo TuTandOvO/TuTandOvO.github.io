@@ -2,7 +2,7 @@
 layout: page
 title: Optimising image-to-spatial-expression prediction
 description: When does predicting spatial transcriptomics from H&E morphology actually improve? A systematic study of SpatialEx across architecture, biological priors, and post-hoc correction.
-img: assets/img/proj_spatialex.png
+img: assets/img/proj_spatialex_slice.png
 importance: 3
 category: research
 ---
@@ -11,12 +11,15 @@ category: research
 
 SpatialEx predicts **spatial gene expression directly from H&E histology**, but its limits are poorly characterised. I asked, systematically, *whether and how* the model can be improved — across **8 optimisation directions in four stages**, on two 10x Xenium datasets (mammary gland and skin).
 
-<div class="row justify-content-sm-center">
-  <div class="col-sm-11 mt-3 mt-md-0">
-    {% include figure.liquid loading="eager" path="assets/img/proj_spatialex.png" title="SpatialEx optimisation workflow" class="img-fluid rounded z-depth-1" %}
+<div class="row">
+  <div class="col-sm-7 mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/proj_spatialex_slice.png" title="Predicted spatial expression on a held-out slice" class="img-fluid rounded z-depth-1" %}
+  </div>
+  <div class="col-sm-5 mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/proj_spatialex_line.png" title="Prediction accuracy across optimisation directions" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-<div class="caption">Four stages: architecture tuning (loss / activation / feature selection) · tissue-specific PPI priors · gene-level post-hoc propagation & GCN correction · conformal-prediction uncertainty.</div>
+<div class="caption">Left: predicted spatial gene expression on a held-out Xenium slice. Right: prediction accuracy (Pearson correlation) across the eight optimisation directions — only the external PPI prior meaningfully moves the curve.</div>
 
 **Key finding — only external biology helps.**
 - **Biological priors are the only lever that genuinely works:** adding tissue-specific **protein–protein-interaction (PPI)** structure raises Pearson correlation by **~22% (mammary)** and **~33% (skin)**.
