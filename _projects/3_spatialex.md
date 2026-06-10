@@ -19,7 +19,7 @@ SpatialEx predicts **spatial gene expression directly from H&E histology**, but 
     {% include figure.liquid loading="eager" path="assets/img/proj_spatialex_line.png" title="Prediction accuracy across optimisation directions" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
-<div class="caption">Left: predicted spatial gene expression on a held-out Xenium slice. Right: prediction accuracy (Pearson correlation) across the eight optimisation directions — only the external PPI prior meaningfully moves the curve.</div>
+<div class="caption">Left — predicted spatial expression of <i>ESR1</i> and <i>CEACAM6</i> on a mammary-gland H&amp;E slice; columns, left to right: ground truth, baseline SpatialEx, the PPI-optimised model, the error map, and the improvement over baseline. Right — prediction accuracy across the optimisation directions: only the external PPI prior meaningfully helps.</div>
 
 **Key finding — only external biology helps.**
 - **Biological priors are the only lever that genuinely works:** adding tissue-specific **protein–protein-interaction (PPI)** structure raises Pearson correlation by **~22% (mammary)** and **~33% (skin)**.
