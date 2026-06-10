@@ -9,9 +9,23 @@ category: personal genomics
 
 > A personal-genomics side project — and an exercise in honest analysis. **n = 2**, exploratory, hypothesis-generating. No causal claim is made or implied.
 
-I am a **dizygotic (fraternal) twin**. My brother and I grew up in the same home, shared a womb, and yet I have been visibly **heavier since childhood**. As a bioinformatics student with access to my own data, I wanted to ask the obvious question properly: **does our DNA explain the difference?** So we each had a **~60× whole-genome** sequenced (BGI, DNBSEQ) and I built the analysis from raw reads up.
+## It started with a photo
 
-## Sample-to-data timeline
+<div class="row justify-content-sm-center">
+  <div class="col-sm-7 mt-3 mt-md-0">
+    {% include figure.liquid loading="eager" path="assets/img/omics_childhood.jpg" title="My twin brother and me as kids" class="img-fluid rounded z-depth-1" %}
+  </div>
+</div>
+<div class="caption">My fraternal twin brother and me as kids — that's me on the left. Same womb, same home, same dinner table, and yet I've been the rounder one for as long as there are photos to prove it.</div>
+
+I'm a **dizygotic (fraternal) twin**. For most of my life, "why am I the bigger one?" was just a family joke. Then I stepped into **bioinformatics** — and realised I could stop guessing and actually *ask the data*: **does our DNA explain the difference?**
+
+## Getting the data
+
+<p style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin:.6rem 0 1.1rem">
+  <img src="{{ '/assets/img/logo_bgi.webp' | relative_url }}" alt="BGI" style="height:32px; flex:0 0 auto">
+  <span style="flex:1 1 320px">So I did. I reached out to <b>BGI</b>, gave a tube of blood, and had <b>both</b> of our genomes sequenced end to end at <b>~60× depth</b> (DNBSEQ short-read platform). Nineteen days from needle to data:</span>
+</p>
 
 <style>
 .omx-tl{display:flex;flex-wrap:wrap;gap:0;margin:1.4rem 0 0.6rem;counter-reset:s}
@@ -39,6 +53,34 @@ I built a modern, pangenome-based workflow rather than a textbook linear-referen
 <div class="caption">
   <b>A — Genome assembly &amp; variant discovery:</b> reads → personalized pangenome graph (HPRC, <code>vg giraffe</code>) → surject to GRCh38 → deep-learning small-variant calling (<code>Clair3</code>) + structural variants → joint genotyping (<code>GLnexus</code>).
   <b>B — Twin comparison &amp; obesity genetics:</b> zygosity / kinship → annotation (<code>VEP</code>) → quality-filtered twin-differential variants → monogenic obesity-gene panel, classic BMI variants, and a genome-wide BMI polygenic-score head-to-head.
+</div>
+
+## Tools &amp; citations
+
+Everything here is open source. The tools, what each one did, and the papers behind them:
+
+<style>
+.omx-tools{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:1rem 0}
+.omx-tool{display:flex; gap:13px; align-items:flex-start; border:1px solid var(--global-divider-color,#e7e2d6); border-radius:12px; padding:13px 14px; background:#fff}
+.omx-tool .ic{width:42px; height:42px; flex:0 0 42px; display:flex; align-items:center; justify-content:center; border-radius:9px; background:#faf8f3; border:1px solid #efeae0; overflow:hidden}
+.omx-tool .ic img{max-width:90%; max-height:90%}
+.omx-tool .ic .txt{font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:12px; color:#3b73c4}
+.omx-tool .nm{font-weight:600; font-size:14px; line-height:1.15}
+.omx-tool .nm a{color:inherit}
+.omx-tool .rl{font-size:12px; color:#7a8694; margin:3px 0 4px}
+.omx-tool .ci{font-size:11px; color:#9aa3ad}
+@media(max-width:600px){.omx-tools{grid-template-columns:1fr}}
+</style>
+<div class="omx-tools">
+  <div class="omx-tool"><div class="ic"><img src="{{ '/assets/img/logo_bgi.webp' | relative_url }}" alt="BGI"></div><div><div class="nm"><a href="https://www.bgi.com/" target="_blank" rel="noopener">BGI · DNBSEQ</a></div><div class="rl">~60× whole-genome sequencing</div><div class="ci">DNBSEQ short-read platform</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">HPRC</span></div><div><div class="nm"><a href="https://humanpangenome.org/" target="_blank" rel="noopener">HPRC pangenome</a></div><div class="rl">graph reference genome</div><div class="ci">Liao et al., <i>Nature</i> 2023</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">vg</span></div><div><div class="nm"><a href="https://github.com/vgteam/vg" target="_blank" rel="noopener">vg Giraffe</a></div><div class="rl">pangenome read mapping</div><div class="ci">Sirén et al., <i>Science</i> 2021</div></div></div>
+  <div class="omx-tool"><div class="ic"><img src="{{ '/assets/img/logo_clair3.png' | relative_url }}" alt="Clair3"></div><div><div class="nm"><a href="https://github.com/HKU-BAL/Clair3" target="_blank" rel="noopener">Clair3</a></div><div class="rl">deep-learning SNV / indel calling</div><div class="ci">Zheng et al., <i>Nat. Comput. Sci.</i> 2022</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">GLn</span></div><div><div class="nm"><a href="https://github.com/dnanexus-rnd/GLnexus" target="_blank" rel="noopener">GLnexus</a></div><div class="rl">joint genotyping</div><div class="ci">Yun et al., <i>Bioinformatics</i> 2020</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">bcf</span></div><div><div class="nm"><a href="https://samtools.github.io/bcftools/" target="_blank" rel="noopener">bcftools</a></div><div class="rl">variant processing &amp; filtering</div><div class="ci">Danecek et al., <i>GigaScience</i> 2021</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">KING</span></div><div><div class="nm"><a href="https://www.cog-genomics.org/plink/2.0/" target="_blank" rel="noopener">plink2 · KING</a></div><div class="rl">kinship &amp; polygenic scoring</div><div class="ci">Manichaikul 2010 · Chang 2015</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">VEP</span></div><div><div class="nm"><a href="https://www.ensembl.org/vep" target="_blank" rel="noopener">Ensembl VEP</a></div><div class="rl">variant annotation</div><div class="ci">McLaren et al., <i>Genome Biol.</i> 2016</div></div></div>
+  <div class="omx-tool"><div class="ic"><span class="txt">PGS</span></div><div><div class="nm"><a href="https://www.pgscatalog.org/" target="_blank" rel="noopener">PGS Catalog</a></div><div class="rl">BMI polygenic-score weights</div><div class="ci">Lambert et al., <i>Nat. Genet.</i> 2021</div></div></div>
 </div>
 
 ## Explore the results
