@@ -37,7 +37,7 @@ category: personal genomics
 .omx-anc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:.6rem 0}
 .omx-anc .col{border:1px solid var(--ln);border-radius:14px;padding:14px 10px;text-align:center;background:#fff}
 .omx-anc .ttl{font-weight:600;font-size:13px}
-.omx-anc .ic{height:54px;display:flex;align-items:center;justify-content:center;margin:6px 0}
+.omx-anc .ic{height:62px;display:flex;align-items:center;justify-content:center;margin:6px 0}
 .omx-anc .note{font-size:11px;color:var(--mut);line-height:1.35}
 .omx-anc .ok{background:#eef6f0}
 /* citation chips */
@@ -79,9 +79,9 @@ category: personal genomics
 .omx-loci .gt{font-family:"IBM Plex Mono",monospace;font-weight:600}
 .omx-pill{display:inline-block;font-size:10px;padding:2px 8px;border-radius:999px;font-weight:600}
 .omx-pill.b{background:#e9f1fb;color:#2c5aa0}.omx-pill.s{background:#eef1f5;color:#6b7280}
-.omx-concl{background:#1d2733;color:#f2efe8;border-radius:16px;padding:22px 24px;margin:1rem 0}
+.omx-concl{background:#0f1216;color:#fff;border-radius:16px;padding:22px 24px;margin:1rem 0}
 .omx-concl h3{color:#fff;font-size:20px;margin:0 0 8px}
-.omx-concl p{color:#eef1f5;font-size:15px;line-height:1.66;margin:0}
+.omx-concl p{color:#ffffff;font-size:15px;line-height:1.66;margin:0}
 .omx-concl em{color:#f0b8b2;font-style:normal;font-weight:600}
 @media(max-width:620px){.omx-anc,.omx-models{grid-template-columns:1fr}.omx-tiles{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -134,16 +134,16 @@ category: personal genomics
     <div class="col">
       <div class="ttl">hg38</div>
       <div class="ic">
-        <svg width="42" height="54" viewBox="0 0 40 56"><circle cx="22" cy="10" r="7" fill="#3b73c4"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#3b73c4"/></svg>
+        <svg width="48" height="58" viewBox="0 0 54 64"><g fill="#3b73c4"><path d="M27 2c4 0 5 4 3 7l-3-2z"/><rect x="18" y="6" width="18" height="17" rx="5"/><path d="M15 24h24l-3 12 2 24h-7l-4-15h-1l-4 15h-7l2-24z"/><path d="M7 26h10v7a5 8 0 0 1-5 8 5 8 0 0 1-5-8z"/></g><rect x="21" y="13" width="12" height="2.6" fill="#fff"/><rect x="26" y="9" width="2.4" height="11" fill="#fff"/><g stroke="#3b73c4" stroke-width="3" stroke-linecap="round"><path d="M44 16v28"/><path d="M39 21h10"/></g></svg>
       </div>
-      <div class="note">European-ancestry reference</div>
+      <div class="note">European-ancestry reference (a medieval knight)</div>
     </div>
     <div class="col">
       <div class="ttl">me</div>
       <div class="ic">
-        <svg width="42" height="54" viewBox="0 0 40 56"><circle cx="22" cy="10" r="7" fill="#d05a4f"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#d05a4f"/></svg>
+        <svg width="48" height="58" viewBox="0 0 54 64"><g fill="#d05a4f"><ellipse cx="12" cy="12" rx="7" ry="2.6"/><ellipse cx="42" cy="12" rx="7" ry="2.6"/><path d="M18 12a9 7 0 0 1 18 0z"/><circle cx="27" cy="18" r="5"/><path d="M19 24h16l8 36h-32z"/></g><rect x="24" y="30" width="6" height="18" rx="2" fill="#fff" opacity=".85"/></svg>
       </div>
-      <div class="note">East-Asian genome</div>
+      <div class="note">East-Asian genome (a Tang civil official)</div>
     </div>
     <div class="col ok">
       <div class="ttl">pangenome ✅</div>
