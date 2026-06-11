@@ -2,8 +2,8 @@
 layout: page
 permalink: /cv/
 title: CV
-nav: true
-nav_order: 3
+nav: false
+published: false
 description: Full curriculum vitae (PDF).
 ---
 

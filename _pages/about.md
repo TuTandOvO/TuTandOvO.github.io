@@ -29,5 +29,3 @@ I work at the interface of **computational and experimental biology**. My main i
 A few threads I've been pulling on: how a **high-fat diet reshapes the pubertal mammary microenvironment** (snRNA-seq + spatial), a **cross-species single-cell skin atlas** and its web platform, **systematic optimisation of image-to-spatial-expression models**, and a **controlled benchmark of doublet-detection methods** at atlas scale. See [research](/projects/) for details.
 
 I also keep a slightly unusual side project — **[Omics of me](/projects/9_omics_of_me/)** — where I sequenced my own and my fraternal twin brother's genomes and asked, honestly, whether DNA explains a lifelong difference between us.
-
-For the full record (coursework, awards, skills), see my <a href="/assets/pdf/Yixiang_Ren_CV.pdf">CV</a>.
