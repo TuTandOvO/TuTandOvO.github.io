@@ -51,25 +51,25 @@ category: personal genomics
 .omx-model .h{font-weight:600;font-size:13px;display:flex;align-items:center;gap:9px}
 .omx-model .d{font-size:11.5px;color:var(--mut);margin-top:6px;line-height:1.45}
 /* kinship scale */
-.omx-scale{position:relative;height:13px;border-radius:7px;margin:34px 0 8px;
+.omx-scale{position:relative;height:18px;border-radius:9px;margin:40px 0 10px;
   background:linear-gradient(90deg,#eef1f5,#e9f1fb 28%,#fdeceb 55%,#f6efe1);border:1px solid var(--ln)}
 .omx-mk{position:absolute;top:-22px;transform:translateX(-50%);font-size:9.5px;color:var(--mut);font-family:"IBM Plex Mono",monospace;text-align:center;width:84px}
-.omx-needle{position:absolute;top:-5px;width:3px;height:23px;border-radius:2px;background:var(--you);transform:translateX(-50%);box-shadow:0 0 0 3px rgba(208,90,79,.18)}
+.omx-needle{position:absolute;top:-7px;width:4px;height:32px;border-radius:2px;background:var(--you);transform:translateX(-50%);box-shadow:0 0 0 3px rgba(208,90,79,.18)}
 .omx-needle .l{position:absolute;top:-19px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:11px;font-weight:600;color:var(--you)}
 /* chrom bars */
-.omx-chrom{display:flex;align-items:flex-end;gap:2px;height:96px;margin:.4rem 0 20px}
+.omx-chrom{display:flex;align-items:flex-end;gap:3px;height:150px;margin:.6rem 0 22px}
 .omx-chrom .cb{flex:1;background:linear-gradient(180deg,#e7a59e,#d05a4f);border-radius:2px 2px 0 0;position:relative}
 .omx-chrom .cl{font-size:7.5px;color:var(--mut);position:absolute;bottom:-15px;left:0;right:0;text-align:center}
 /* stat tiles */
 .omx-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:.6rem 0}
 .omx-tile{border:1px solid var(--ln);border-radius:11px;padding:11px 12px;background:#fbfaf7}
-.omx-tile .v{font-family:"Fraunces",serif;font-weight:600;font-size:21px;line-height:1}
+.omx-tile .v{font-family:"Fraunces",serif;font-weight:600;font-size:26px;line-height:1}
 .omx-tile .k{font-size:10.5px;color:var(--mut);margin-top:5px;font-family:"IBM Plex Mono",monospace}
 /* prs */
 .omx-prs .row{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:9px;margin:7px 0}
 .omx-prs .nm{font-size:11px;font-family:"IBM Plex Mono",monospace;color:var(--mut)}
-.omx-prs .bar{position:relative;height:26px;background:#f4f1ea;border-radius:6px;overflow:hidden}
-.omx-prs .fy,.omx-prs .fb{position:absolute;top:0;bottom:0;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:10.5px;color:#fff;font-weight:600}
+.omx-prs .bar{position:relative;height:36px;background:#f4f1ea;border-radius:7px;overflow:hidden}
+.omx-prs .fy,.omx-prs .fb{position:absolute;top:0;bottom:0;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;font-size:12px;color:#fff;font-weight:600}
 .omx-prs .fy{background:var(--you)}.omx-prs .fb{background:var(--bro);opacity:.92}
 .omx-prs .pair{display:flex;flex-direction:column;gap:4px}
 /* loci table */
@@ -81,7 +81,7 @@ category: personal genomics
 .omx-pill.b{background:#e9f1fb;color:#2c5aa0}.omx-pill.s{background:#eef1f5;color:#6b7280}
 .omx-concl{background:#1d2733;color:#f2efe8;border-radius:16px;padding:22px 24px;margin:1rem 0}
 .omx-concl h3{color:#fff;font-size:20px;margin:0 0 8px}
-.omx-concl p{color:#cfd5dc;font-size:14px;line-height:1.62;margin:0}
+.omx-concl p{color:#eef1f5;font-size:15px;line-height:1.66;margin:0}
 .omx-concl em{color:#f0b8b2;font-style:normal;font-weight:600}
 @media(max-width:620px){.omx-anc,.omx-models{grid-template-columns:1fr}.omx-tiles{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -114,7 +114,14 @@ category: personal genomics
   <div class="sub">From blood to reads</div>
   <h3>Two brothers, two genomes</h3>
   <p>I reached out to <b>BGI</b>, gave a tube of whole blood, and had <b>both</b> of our genomes sequenced at <b>~60× depth</b> on the <b>DNBSEQ</b> short-read platform. Sequencing can't read a chromosome end-to-end, so the DNA is shattered into hundreds of millions of short fragments (<span class="omx-mono">read 1, read 2, read 3 …</span>), each ~150 letters long, and every position is covered ~60 times so we can tell a true variant from a sequencing slip.</p>
-  <div class="omx-emblem"><img src="{{ '/assets/img/logo_bgi.webp' | relative_url }}" alt="BGI" style="height:30px"></div>
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:.7rem 0 .2rem">
+    <svg width="30" height="42" viewBox="0 0 30 42" fill="none"><g stroke="#1d2733" stroke-width="1.7" stroke-linecap="round"><path d="M9 5c0 6.5 12 6.5 12 13s-12 6.5-12 13"/><path d="M21 5c0 6.5-12 6.5-12 13s12 6.5 12 13"/><path d="M11 9.5h8M10 15h10M10 23h10M11 28.5h8"/></g></svg>
+    <span style="color:#bbb;font-size:20px">→</span>
+    <span class="omx-emblem" style="margin:0"><img src="{{ '/assets/img/logo_bgi.webp' | relative_url }}" alt="BGI" style="height:26px"></span>
+    <span style="color:#bbb;font-size:20px">→</span>
+    <svg width="92" height="48" viewBox="0 0 60 46"><g><rect x="4" y="6" width="22" height="5" rx="2.5" fill="#2f9e6e"/><rect x="30" y="6" width="16" height="5" rx="2.5" fill="#3b73c4"/><rect x="10" y="15" width="18" height="5" rx="2.5" fill="#c79a3a"/><rect x="32" y="15" width="20" height="5" rx="2.5" fill="#d05a4f"/><rect x="4" y="24" width="14" height="5" rx="2.5" fill="#3b73c4"/><rect x="22" y="24" width="24" height="5" rx="2.5" fill="#2f9e6e"/><rect x="8" y="33" width="20" height="5" rx="2.5" fill="#d05a4f"/><rect x="32" y="33" width="14" height="5" rx="2.5" fill="#c79a3a"/></g></svg>
+    <span class="mut omx-mono" style="font-size:11.5px">~150 bp reads · ~60×</span>
+  </div>
   <p class="mut" style="font-size:13px">Timeline: <b>May 18</b> blood drawn → BGI · <b>Jun 2</b> library prep · <b>Jun 4</b> sequencing done · <b>Jun 6</b> data downloaded, analysis begins.</p>
 </div>
 
@@ -127,21 +134,25 @@ category: personal genomics
     <div class="col">
       <div class="ttl">hg38</div>
       <div class="ic">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M13 9c0-3.5 14-3.5 14 0v8c0 6.5-3.2 14-7 14s-7-7.5-7-14z" stroke="#3b73c4" stroke-width="2"/><rect x="13" y="16" width="14" height="3.2" rx="1" fill="#3b73c4"/><path d="M16 23v6M20 23v6.5M24 23v6" stroke="#3b73c4" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <svg width="42" height="54" viewBox="0 0 40 56"><circle cx="22" cy="10" r="7" fill="#3b73c4"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#3b73c4"/></svg>
       </div>
       <div class="note">European-ancestry reference</div>
     </div>
     <div class="col">
       <div class="ttl">me</div>
       <div class="ic">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="18" y="5" width="4" height="17" rx="2" fill="#c79a3a"/><path d="M15.5 22h9l-2.4 9h-4.2z" fill="#1d2733"/><path d="M19.4 31l.6 4 .6-4" stroke="#1d2733" stroke-width="1.4"/></svg>
+        <svg width="42" height="54" viewBox="0 0 40 56"><circle cx="22" cy="10" r="7" fill="#d05a4f"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#d05a4f"/></svg>
       </div>
       <div class="note">East-Asian genome</div>
     </div>
     <div class="col ok">
       <div class="ttl">pangenome ✅</div>
       <div class="ic">
-        <svg width="50" height="40" viewBox="0 0 50 40"><circle cx="12" cy="15" r="5" fill="#d05a4f"/><circle cx="25" cy="11" r="5" fill="#3b73c4"/><circle cx="38" cy="15" r="5" fill="#2f9e6e"/><circle cx="18" cy="26" r="5" fill="#c79a3a"/><circle cx="32" cy="26" r="5" fill="#7a55c4"/></svg>
+        <svg width="74" height="54" viewBox="0 0 74 56">
+          <g transform="translate(-3,9) scale(0.6)"><circle cx="22" cy="10" r="7" fill="#3b73c4"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#3b73c4"/></g>
+          <g transform="translate(22,2) scale(0.72)"><circle cx="22" cy="10" r="7" fill="#d05a4f"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#d05a4f"/></g>
+          <g transform="translate(48,9) scale(0.6)"><circle cx="22" cy="10" r="7" fill="#2f9e6e"/><path d="M15 19c-3 1-5 4-5 8l-1 12 4 1 1-9h1l-2 16h4l1-12h2l1 12h4l-2-16h1l1 9 4-1-1-12c0-4-2-7-5-8z" fill="#2f9e6e"/></g>
+        </svg>
       </div>
       <div class="note">many ancestries → fits more people</div>
     </div>
@@ -168,21 +179,52 @@ category: personal genomics
   <div class="sub">Variant calling with Clair3</div>
   <h3>Finding where my letters changed</h3>
   <p>With the BAM and the reference, the next job is to read out, position by position, where I differ from the reference. <b>Clair3</b> does this with two deep-learning models working together:</p>
-  <div class="omx-models">
-    <div class="omx-model">
-      <div class="h">
-        <svg width="34" height="30" viewBox="0 0 46 40"><g stroke="#d05a4f" stroke-width="2.4" stroke-linecap="round"><path d="M6 9h12M6 15h12M6 21h12M6 27h12M6 33h12"/></g><rect x="20.5" y="6" width="3" height="30" fill="#d05a4f" opacity=".28"/><rect x="30" y="11" width="10" height="18" rx="2" fill="none" stroke="#d05a4f" stroke-width="2"/></svg>
-        Pileup model
-      </div>
-      <div class="d">Fast first pass. Looks at the <b>stack of bases</b> sitting over each position and classifies most sites instantly.</div>
-    </div>
-    <div class="omx-model">
-      <div class="h">
-        <svg width="34" height="30" viewBox="0 0 46 40"><g stroke="#7a55c4" stroke-width="2" stroke-linecap="round"><path d="M5 10h14M9 16h12M5 22h16M7 28h13"/></g><rect x="28" y="11" width="12" height="18" rx="2" fill="none" stroke="#7a55c4" stroke-width="2"/><circle cx="34" cy="16" r="1.5" fill="#7a55c4"/><circle cx="31" cy="22" r="1.5" fill="#7a55c4"/><circle cx="37" cy="22" r="1.5" fill="#7a55c4"/></svg>
-        Full-alignment model
-      </div>
-      <div class="d">Called in only for the <b>hard sites</b> (near indels, repeats), where it re-examines the whole local alignment in detail.</div>
-    </div>
+  <div class="omx-fig">
+    <svg viewBox="0 0 372 100" style="width:100%;max-width:500px;display:block;margin:2px auto">
+      <text x="6" y="13" font-size="11" fill="#555" font-family="monospace">read stack at one position</text>
+      <g transform="translate(6,20)">
+        <rect x="0" y="0" width="15" height="13" fill="#2f9e6e"/><rect x="16" y="0" width="15" height="13" fill="#3b73c4"/><rect x="32" y="0" width="15" height="13" fill="#c79a3a"/><rect x="48" y="0" width="15" height="13" fill="#d05a4f"/><rect x="64" y="0" width="15" height="13" fill="#2f9e6e"/><rect x="80" y="0" width="15" height="13" fill="#3b73c4"/>
+        <rect x="0" y="14" width="15" height="13" fill="#2f9e6e"/><rect x="16" y="14" width="15" height="13" fill="#3b73c4"/><rect x="32" y="14" width="15" height="13" fill="#c79a3a"/><rect x="48" y="14" width="15" height="13" fill="#3b73c4"/><rect x="64" y="14" width="15" height="13" fill="#2f9e6e"/><rect x="80" y="14" width="15" height="13" fill="#3b73c4"/>
+        <rect x="0" y="28" width="15" height="13" fill="#2f9e6e"/><rect x="16" y="28" width="15" height="13" fill="#3b73c4"/><rect x="32" y="28" width="15" height="13" fill="#c79a3a"/><rect x="48" y="28" width="15" height="13" fill="#d05a4f"/><rect x="64" y="28" width="15" height="13" fill="#2f9e6e"/><rect x="80" y="28" width="15" height="13" fill="#3b73c4"/>
+        <rect x="0" y="42" width="15" height="13" fill="#2f9e6e"/><rect x="16" y="42" width="15" height="13" fill="#3b73c4"/><rect x="32" y="42" width="15" height="13" fill="#c79a3a"/><rect x="48" y="42" width="15" height="13" fill="#3b73c4"/><rect x="64" y="42" width="15" height="13" fill="#2f9e6e"/><rect x="80" y="42" width="15" height="13" fill="#3b73c4"/>
+        <rect x="0" y="56" width="15" height="13" fill="#2f9e6e"/><rect x="16" y="56" width="15" height="13" fill="#3b73c4"/><rect x="32" y="56" width="15" height="13" fill="#c79a3a"/><rect x="48" y="56" width="15" height="13" fill="#d05a4f"/><rect x="64" y="56" width="15" height="13" fill="#2f9e6e"/><rect x="80" y="56" width="15" height="13" fill="#3b73c4"/>
+        <rect x="47" y="-3" width="17" height="75" fill="none" stroke="#1d2733" stroke-width="2" rx="2"/>
+      </g>
+      <path d="M118 48 h24" stroke="#999" stroke-width="2"/>
+      <g transform="translate(152,22)">
+        <g fill="#7a55c4"><circle cx="6" cy="6" r="4"/><circle cx="6" cy="20" r="4"/><circle cx="6" cy="34" r="4"/><circle cx="6" cy="48" r="4"/><circle cx="30" cy="14" r="4"/><circle cx="30" cy="28" r="4"/><circle cx="30" cy="42" r="4"/><circle cx="54" cy="24" r="4"/></g>
+        <g stroke="#cbb8e6" stroke-width="1"><path d="M6 6l24 8M6 6l24 22M6 20l24-6M6 20l24 14M6 34l24-6M6 34l24 8M6 48l24-6M6 48l24-20M30 14l24 10M30 28l24-4M30 42l24-18"/></g>
+      </g>
+      <text x="156" y="90" font-size="10" fill="#777" font-family="monospace">small CNN</text>
+      <path d="M220 48 h22" stroke="#999" stroke-width="2"/>
+      <rect x="246" y="36" width="48" height="26" rx="5" fill="#fdeceb" stroke="#d05a4f"/>
+      <text x="270" y="53" font-size="13" fill="#d05a4f" text-anchor="middle" font-family="monospace" font-weight="600">0/1</text>
+      <text x="304" y="52" font-size="10" fill="#777">fast ·</text><text x="304" y="64" font-size="10" fill="#777">most sites</text>
+    </svg>
+    <div class="omx-cap"><b>Pileup model — fast first pass.</b> The column of bases stacked over each position feeds a small network; most sites are settled instantly.</div>
+  </div>
+  <div class="omx-fig">
+    <svg viewBox="0 0 372 100" style="width:100%;max-width:500px;display:block;margin:2px auto">
+      <text x="6" y="13" font-size="11" fill="#555" font-family="monospace">full local alignment window (gray = indel gap)</text>
+      <g transform="translate(6,20)">
+        <rect x="0" y="0" width="13" height="12" fill="#2f9e6e"/><rect x="14" y="0" width="13" height="12" fill="#3b73c4"/><rect x="28" y="0" width="13" height="12" fill="#e6e3da"/><rect x="42" y="0" width="13" height="12" fill="#c79a3a"/><rect x="56" y="0" width="13" height="12" fill="#d05a4f"/><rect x="70" y="0" width="13" height="12" fill="#2f9e6e"/><rect x="84" y="0" width="13" height="12" fill="#3b73c4"/>
+        <rect x="0" y="13" width="13" height="12" fill="#2f9e6e"/><rect x="14" y="13" width="13" height="12" fill="#3b73c4"/><rect x="28" y="13" width="13" height="12" fill="#7a55c4"/><rect x="42" y="13" width="13" height="12" fill="#c79a3a"/><rect x="56" y="13" width="13" height="12" fill="#d05a4f"/><rect x="70" y="13" width="13" height="12" fill="#2f9e6e"/><rect x="84" y="13" width="13" height="12" fill="#3b73c4"/>
+        <rect x="0" y="26" width="13" height="12" fill="#2f9e6e"/><rect x="14" y="26" width="13" height="12" fill="#3b73c4"/><rect x="28" y="26" width="13" height="12" fill="#e6e3da"/><rect x="42" y="26" width="13" height="12" fill="#c79a3a"/><rect x="56" y="26" width="13" height="12" fill="#d05a4f"/><rect x="70" y="26" width="13" height="12" fill="#2f9e6e"/><rect x="84" y="26" width="13" height="12" fill="#3b73c4"/>
+        <rect x="0" y="39" width="13" height="12" fill="#2f9e6e"/><rect x="14" y="39" width="13" height="12" fill="#3b73c4"/><rect x="28" y="39" width="13" height="12" fill="#7a55c4"/><rect x="42" y="39" width="13" height="12" fill="#c79a3a"/><rect x="56" y="39" width="13" height="12" fill="#d05a4f"/><rect x="70" y="39" width="13" height="12" fill="#2f9e6e"/><rect x="84" y="39" width="13" height="12" fill="#3b73c4"/>
+        <rect x="0" y="52" width="13" height="12" fill="#2f9e6e"/><rect x="14" y="52" width="13" height="12" fill="#3b73c4"/><rect x="28" y="52" width="13" height="12" fill="#e6e3da"/><rect x="42" y="52" width="13" height="12" fill="#c79a3a"/><rect x="56" y="52" width="13" height="12" fill="#d05a4f"/><rect x="70" y="52" width="13" height="12" fill="#2f9e6e"/><rect x="84" y="52" width="13" height="12" fill="#3b73c4"/>
+      </g>
+      <path d="M112 48 h22" stroke="#999" stroke-width="2"/>
+      <g transform="translate(144,14)">
+        <g fill="#7a55c4"><circle cx="6" cy="6" r="3.6"/><circle cx="6" cy="18" r="3.6"/><circle cx="6" cy="30" r="3.6"/><circle cx="6" cy="42" r="3.6"/><circle cx="6" cy="54" r="3.6"/><circle cx="28" cy="12" r="3.6"/><circle cx="28" cy="24" r="3.6"/><circle cx="28" cy="36" r="3.6"/><circle cx="28" cy="48" r="3.6"/><circle cx="50" cy="18" r="3.6"/><circle cx="50" cy="30" r="3.6"/><circle cx="50" cy="42" r="3.6"/><circle cx="72" cy="30" r="3.6"/></g>
+        <g stroke="#cbb8e6" stroke-width=".8"><path d="M6 6l22 6M6 18l22-6M6 30l22 6M6 42l22 6M6 54l22-6M28 12l22 6M28 24l22 6M28 36l22-6M28 48l22-6M50 18l22 12M50 30l22 0M50 42l22-12"/></g>
+      </g>
+      <text x="148" y="90" font-size="10" fill="#777" font-family="monospace">deeper CNN</text>
+      <path d="M224 48 h22" stroke="#999" stroke-width="2"/>
+      <rect x="248" y="36" width="48" height="26" rx="5" fill="#f2ecfb" stroke="#7a55c4"/>
+      <text x="272" y="53" font-size="13" fill="#7a55c4" text-anchor="middle" font-family="monospace" font-weight="600">1/1</text>
+      <text x="306" y="52" font-size="10" fill="#777">hard ·</text><text x="306" y="64" font-size="10" fill="#777">indels</text>
+    </svg>
+    <div class="omx-cap"><b>Full-alignment model — for the hard sites.</b> Near indels and repeats, the entire 2-D local alignment is re-read by a deeper network.</div>
   </div>
   <p class="mut" style="font-size:13px">Clair3 is the lightweight, GPU-free stand-in for DeepVariant; it also catches structural variants via <span class="omx-mono">vg call</span>. Out comes a per-person genotype at every position: <span class="omx-mono">0/0</span> reference, <span class="omx-mono">0/1</span> heterozygous, <span class="omx-mono">1/1</span> homozygous-variant.</p>
 </div>
